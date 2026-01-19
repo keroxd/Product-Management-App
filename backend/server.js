@@ -6,6 +6,7 @@ import cors from "cors"
 import cloudinary from 'cloudinary'
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
 import multer from 'multer';
+import mongoose from 'mongoose';
 
 
 
@@ -23,7 +24,7 @@ app.get("/api/users", async (req, res) => {
         const users = await User.find({})
         res.status(200).json({ success: true, data: users })
     } catch (error) {
-        console.log("Error in fetching products")
+        res.status(500).json({ success: false, message: "Error fetching users" });
     }
 })
 
@@ -46,6 +47,27 @@ app.post("/api/users", async (req, res) => {
         res.status(500).json({ success: false, message: "Server Error" });
     }
 })
+
+app.put("/api/users/:id", async (req, res) => {
+    const { id } = req.params;
+    const user = req.body;
+
+    // Validation: Check if the ID is a valid MongoDB format
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ success: false, message: "Invalid User ID" });
+    }
+
+    try {
+        const updatedUser = await User.findByIdAndUpdate(id, user, { new: true });
+        if (!updatedUser) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+        res.status(200).json({ success: true, data: updatedUser });
+    } catch (error) {
+        console.error("Update error:", error.message);
+        res.status(500).json({ success: false, message: "Server Error" });
+    }
+});
 
 
 
