@@ -11,7 +11,7 @@ const TextInput = ({ title, placeholder, type, value, name, onChange}) => {
                  value={value}
                  onChange={onChange}
                     placeholder={placeholder}
-                    className="bg-white border-neutral-300 border-1 text-xs font-normal rounded-md w-full h-11 mt-2 px-4
+                    className="bg-white border-neutral-300 border text-xs font-normal rounded-md w-full h-11 mt-2 px-4
             focus:outline-1"/>
             </div>
         </>

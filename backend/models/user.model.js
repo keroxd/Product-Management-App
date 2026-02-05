@@ -22,7 +22,8 @@ const userSchema = new mongoose.Schema({
     image: {
         type: String,
         required: false,
-        default: "https://example.com/default-avatar.png"
+        default: "https://i.pinimg.com/736x/0f/f2/f4/0ff2f496da96bfad59cb9b3dd283a111.jpg",
+        set: v => v === "" ? undefined : v
     }
 }, {
 })

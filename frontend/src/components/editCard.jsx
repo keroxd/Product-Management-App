@@ -28,7 +28,7 @@ const EditCard = ({ close, currentUser }) => {
             if (res.data.success) {
                 alert("Update Successful")
                 window.location.reload()
-                close(); // Close the modal
+                close();
             }
         } catch (error) {
             console.error("Axios Error:", error.response?.data || error.message);
